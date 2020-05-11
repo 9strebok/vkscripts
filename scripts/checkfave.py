@@ -3,7 +3,7 @@ import getpass
 
 import vk_api
 
-PARSER = argparse.ArgumentParser(description="Check if a person has current account in bookmarks")
+PARSER = argparse.ArgumentParser(description="Check if a person has a current account in bookmarks")
 PARSER.add_argument("-u", "--user", action="store", type=int, dest="user", help="python3 checkfave.py -u [user_id]")
 args = PARSER.parse_args()
 
@@ -16,7 +16,7 @@ BANNER = """
 
 def authorize():
     login = input("[?] LOGIN: ")
-    passwd = getpass.getpass("[?] Password: ")
+    passwd = getpass.getpass("[?] PASSWORD: ")
     api = vk_api.VkApi(login=login, password=passwd, session=None)
     api.auth()
     api = api.get_api()
