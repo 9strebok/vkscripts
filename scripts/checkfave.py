@@ -1,5 +1,6 @@
 import argparse
 import getpass
+import os
 
 import vk_api
 
@@ -23,6 +24,10 @@ def authorize():
     return api
 
 
+def delete_vk_config():
+    if not os.path.exists("vk_config.v2.json"):
+        os.system("rm vk_config.v2.json")
+
 def main():
     print(BANNER)
     account = authorize()
@@ -35,3 +40,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    delete_vk_config()
