@@ -9,6 +9,12 @@
     python3 checkfave.py -u/--user [id]
 ~~~
 
+> ***gifts.py*** **status: working** - *User gift parsing.*
+
+## USING
+~~~
+    python3 gifts.py -u/--user [id]
+~~~
 ---
 
 # HELP
