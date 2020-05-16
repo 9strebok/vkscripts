@@ -1,15 +1,25 @@
 # VKSCRIPTS
 
+## Tree
+~~~
+├── install.py
+├── README.md
+└── scripts
+   ├── checkfave.py
+   ├── gifts.py
+   └── vk_config.v2.json
+~~~
+
 
 ## SCRIPTS
-> ***checkfave.py*** **status: working** - *Check if a person has a current account in bookmarks.*
+* ***checkfave.py*** **status: working** - *Check if a person has a current account in bookmarks.*
 
 ## USING
 ~~~
     python3 checkfave.py -u/--user [id]
 ~~~
 
-> ***gifts.py*** **status: working** - *User gift parsing.*
+* ***gifts.py*** **status: working** - *User gift parsing.*
 
 ## USING
 ~~~
@@ -17,7 +27,7 @@
 ~~~
 ---
 
-# HELP
+## HELP
 
 ~~~
     python3 [script] -h/--help
