@@ -23,7 +23,6 @@ def authorize():
     api = api.get_api()
     return api
 
-
 def delete_vk_config():
     if not os.path.exists("vk_config.v2.json"):
         os.system("rm vk_config.v2.json")
@@ -36,7 +35,6 @@ def main():
         print("""====================\n""", "True")
     else:
         print("""====================\n""", "False")
-
 
 if __name__ == "__main__":
     main()

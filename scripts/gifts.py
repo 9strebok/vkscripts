@@ -9,13 +9,13 @@ PARSER.add_argument("-u", "--user", action="store", type=int, dest="user", help=
 args = PARSER.parse_args()
 
 BANNER = """
-
         .__  _____  __
    ____ |__|/ ____\/  |_  ______
   / ___\|  \   __\\\\   __\/  ___/
  / /_/  >  ||  |   |  |  \___ \\
  \___  /|__||__|   |__| /____  >
 /_____/                      \/
+
 """
 
 def authorize():
@@ -26,7 +26,6 @@ def authorize():
     api = api.get_api()
     return api
 
-
 def delete_vk_config():
     if not os.path.exists("vk_config.v2.json"):
         os.system("rm vk_config.v2.json")
@@ -34,10 +33,9 @@ def delete_vk_config():
 def main():
     print(BANNER)
     account = authorize()
+    print()
     try:
         gifts_list = account.gifts.get(user_id=args.user)
-
-
         usrs = []
         for i in gifts_list["items"]:
             if not i["from_id"] in usrs:
@@ -52,9 +50,7 @@ def main():
             if usr < 0:
                 usr = abs(usr)
                 print("vk.com/public"+str(usr), tmp)
-            elif usr == 0:
-                pass
-            else:
+            elif usr > 0:
                 print("vk.com/id"+str(usr), tmp)
         print()
 
@@ -70,8 +66,10 @@ def main():
         print("Gifts from groups:", groups_gifts)
         print("Gifts from users:", users_gifts)
         print("Unidentified gifts:", unidentified)
+        print()
     except:
         print("Error, maybe you can't to get gifts list")
+        print()
 
 
 if __name__ == "__main__":
