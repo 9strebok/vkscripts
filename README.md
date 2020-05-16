@@ -6,8 +6,7 @@
 ├── README.md
 └── scripts
    ├── checkfave.py
-   ├── gifts.py
-   └── vk_config.v2.json
+   └── gifts.py
 ~~~
 
 
