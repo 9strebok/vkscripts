@@ -24,9 +24,8 @@
     pip install -r requirements
 ~~~
 
-~~~
-
 ## SCRIPTS
+
 * ***checkfave.py*** **status: working** - *Check if a person has a current account in bookmarks.*
 
 ## USING
