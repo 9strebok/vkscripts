@@ -2,13 +2,29 @@
 
 ## Tree
 ~~~
-├── install.py
+.
 ├── README.md
+├── requirements.txt
 └── scripts
    ├── checkfave.py
    └── gifts.py
 ~~~
 
+## INSTALL
+
+### Linux
+~~~bash
+    git clone https://github.com/9strebok/vkscripts
+    pip3 install -r requirements.txt
+~~~
+
+### Windows
+~~~bash
+    git clone https://github.com/9strebok/vkscripts
+    pip install -r requirements
+~~~
+
+~~~
 
 ## SCRIPTS
 * ***checkfave.py*** **status: working** - *Check if a person has a current account in bookmarks.*
@@ -24,6 +40,7 @@
 ~~~
     python3 gifts.py -u/--user [id]
 ~~~
+
 ---
 
 ## HELP
@@ -46,13 +63,6 @@
     optional arguments:
         -h, --help            show this help message and exit
         -u USER, --user USER  python3 checkfave.py -u [user_id]
-~~~
-
-
-### Dependency installation
-
-~~~
-    python3 install.py
 ~~~
 
 ---
