@@ -16,12 +16,14 @@ BANNER = """
 """
 
 def authorize():
-    login = input("[?] LOGIN: ")
-    passwd = getpass.getpass("[?] PASSWORD: ")
-    api = vk_api.VkApi(login=login, password=passwd, session=None)
-    api.auth()
-    api = api.get_api()
-    return api
+    try:
+        login = input("[?] LOGIN: ")
+        passwd = getpass.getpass("[?] PASSWORD: ")
+        api = vk_api.VkApi(login=login, password=passwd, session=None)
+        api.auth()
+        api = api.get_api()
+        return api
+
 
 def delete_vk_config():
     if os.path.exists("vk_config.v2.json"):
@@ -30,6 +32,7 @@ def delete_vk_config():
     if os.path.exists("vk_config.v2.json"):
         os.system("rm vk_config.v2.json")
     
+
 def main():
     print(BANNER)
     account = authorize()
@@ -38,6 +41,7 @@ def main():
         print("""====================\n""", "True")
     else:
         print("""====================\n""", "False")
+
 
 if __name__ == "__main__":
     main()
