@@ -34,8 +34,12 @@ def authorize():
 
 
 def delete_vk_config():
-    if not os.path.exists("vk_config.v2.json"):
+    if os.path.exists("vk_config.v2.json"):
         os.system("rm vk_config.v2.json")
+    os.walk("..")
+    if os.path.exists("vk_config.v2.json"):
+        os.system("rm vk_config.v2.json")
+    
 
 
 def main():
