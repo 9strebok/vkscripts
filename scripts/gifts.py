@@ -1,7 +1,9 @@
 import argparse
 import getpass
 import os
+import time
 
+from progress.spinner import MoonSpinner
 import vk_api
 
 PARSER = argparse.ArgumentParser(description="Check if a person has a current account in bookmarks")
@@ -20,15 +22,21 @@ BANNER = """
 
 def authorize():
     login = input("[?] LOGIN: ")
-    passwd = getpass.getpass("[?] PASSWORD: ")
+    try:
+        passwd = getpass.getpass("[?] PASSWORD: ")
+    except:
+        print("[!] Error")
+        passwd = getpass.getpass("[?] PASSWORD: ")
     api = vk_api.VkApi(login=login, password=passwd, session=None)
     api.auth()
     api = api.get_api()
     return api
 
+
 def delete_vk_config():
     if not os.path.exists("vk_config.v2.json"):
         os.system("rm vk_config.v2.json")
+
 
 def main():
     print(BANNER)
@@ -36,16 +44,20 @@ def main():
     print()
     try:
         gifts_list = account.gifts.get(user_id=args.user)
-        usrs = []
-        for i in gifts_list["items"]:
-            if not i["from_id"] in usrs:
-                usrs.append(i["from_id"])
+        with MoonSpinner("Wait..") as bar:
+            usrs = []
+            for i in gifts_list.get("items"):
+                time.sleep(0.01)
+                if not i.get("from_id") in usrs:
+                    usrs.append(i.get("from_id"))
+                bar.next()
+        print()
 
         res = []
         for usr in usrs:
             tmp = 0
-            for i in gifts_list["items"]:
-                if i["from_id"] == usr:
+            for i in gifts_list.get("items"):
+                if i.get("from_id") == usr:
                     tmp += 1
             if usr < 0:
                 usr = abs(usr)
@@ -56,13 +68,13 @@ def main():
 
         groups_gifts = 0
         users_gifts = 0
-        for i in gifts_list["items"]:
-            if i["from_id"] < 0:
+        for i in gifts_list.get("items"):
+            if i.get("from_id") < 0:
                 groups_gifts += 1
-            elif i["from_id"] > 0:
+            elif i.get("from_id") > 0:
                 users_gifts += 1
-        unidentified = gifts_list["count"] - (groups_gifts + users_gifts)
-        print("Count:", gifts_list["count"])
+        unidentified = gifts_list.get("count") - (groups_gifts + users_gifts)
+        print("Count:", gifts_list.get("count"))
         print("Gifts from groups:", groups_gifts)
         print("Gifts from users:", users_gifts)
         print("Unidentified gifts:", unidentified)
