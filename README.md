@@ -7,7 +7,8 @@
 ├── requirements.txt
 └── scripts
    ├── checkfave.py
-   └── gifts.py
+   ├── gifts.py
+   └── mergefriends.py
 ~~~
 
 ## INSTALL
@@ -38,6 +39,13 @@
 ## USING
 ~~~
     python3 gifts.py -u/--user [id]
+~~~
+
+* ***mergefriends.py*** **status: working** - *User gift parsing.*
+
+## USING
+~~~
+    python3 gifts.py -u1/--user1 [id] -u2/--user2 [id]
 ~~~
 
 ---
