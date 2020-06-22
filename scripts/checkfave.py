@@ -24,14 +24,17 @@ def authorize():
     return api
 
 def delete_vk_config():
-    if not os.path.exists("vk_config.v2.json"):
+    if os.path.exists("vk_config.v2.json"):
         os.system("rm vk_config.v2.json")
-
+    os.walk("..")
+    if os.path.exists("vk_config.v2.json"):
+        os.system("rm vk_config.v2.json")
+    
 def main():
     print(BANNER)
     account = authorize()
     info = account.users.get(user_ids=args.user, fields="is_favorite")
-    if info[0]["is_favorite"] == 1:
+    if info[0].get("is_favorite") == 1:
         print("""====================\n""", "True")
     else:
         print("""====================\n""", "False")
