@@ -21,16 +21,19 @@ BANNER = """
 """
 
 def authorize():
-    login = input("[?] LOGIN: ")
     try:
-        passwd = getpass.getpass("[?] PASSWORD: ")
-    except:
-        print("[!] Error")
-        passwd = getpass.getpass("[?] PASSWORD: ")
-    api = vk_api.VkApi(login=login, password=passwd, session=None)
-    api.auth()
-    api = api.get_api()
-    return api
+        login = input("[?] LOGIN: ")
+        try:
+            passwd = getpass.getpass("[?] PASSWORD: ")
+        except:
+            print("[!] Error")
+            passwd = getpass.getpass("[?] PASSWORD: ")
+        api = vk_api.VkApi(login=login, password=passwd, session=None)
+        api.auth()
+        api = api.get_api()
+        return api
+    except vk_api.BadPassword as e:
+        print("[!] Bad password")
 
 
 def delete_vk_config():
