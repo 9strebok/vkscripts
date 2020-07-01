@@ -5,7 +5,7 @@ import vk_api
 import getpass
 
 
-PARSER = argparse.ArgumentParser(description="Check if a person has a current account in bookmarks")
+PARSER = argparse.ArgumentParser(description="")
 PARSER.add_argument("-u1", "--user1", action="store", type=int, dest="user1", help="python3 gifts.py -u1 [user_id] -u2 [user_id]")
 PARSER.add_argument("-u2", "--user2", action="store", type=int, dest="user2", help="python3 gifts.py -u1 [user_id] -u2 [user_id]")
 args = PARSER.parse_args()

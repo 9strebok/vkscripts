@@ -22,7 +22,7 @@
 ### Windows
 ~~~bash
     git clone https://github.com/9strebok/vkscripts
-    pip install -r requirements
+    pip install -r requirements.txt
 ~~~
 
 ## SCRIPTS
