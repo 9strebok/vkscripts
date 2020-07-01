@@ -42,7 +42,7 @@ def delete_vk_config():
     os.walk("..")
     if os.path.exists("vk_config.v2.json"):
         os.system("rm vk_config.v2.json")
-    
+
 
 
 def main():
@@ -67,10 +67,16 @@ def main():
                 if i.get("from_id") == usr:
                     tmp += 1
             if usr < 0:
-                usr = abs(usr)
-                print("vk.com/public"+str(usr), tmp)
+                usr = str(abs(usr))
+
+                public = "https://vk.com/public"
+                s = f"echo -e '\e]8;;{public}{usr}\\a{public}{usr}\e]8;;\\a' {tmp}"
+                os.system(s)
             elif usr > 0:
-                print("vk.com/id"+str(usr), tmp)
+                usr = str(usr)
+                vkid = "https://vk.com/id"
+                s = f"echo -e '\e]8;;{vkid}{usr}\\a{vkid}{usr}\e]8;;\\a' {tmp}"
+                os.system(s)
         print()
 
         groups_gifts = 0

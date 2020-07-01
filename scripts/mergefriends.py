@@ -12,21 +12,23 @@ args = PARSER.parse_args()
 
 
 BANNER = """
-   _____                            ___________      .__                   .___      
+   _____                            ___________      .__                   .___
   /     \   ___________  ____   ____\_   _____/______|__| ____   ____    __| _/______
  /  \ /  \_/ __ \_  __ \/ ___\_/ __ \|    __) \_  __ \  |/ __ \ /    \  / __ |/  ___/
-/    Y    \  ___/|  | \/ /_/  >  ___/|     \   |  | \/  \  ___/|   |  \/ /_/ |\___ \ 
+/    Y    \  ___/|  | \/ /_/  >  ___/|     \   |  | \/  \  ___/|   |  \/ /_/ |\___ \
 \____|__  /\___  >__|  \___  / \___  >___  /   |__|  |__|\___  >___|  /\____ /____  >
-        \/     \/     /_____/      \/    \/                  \/     \/      \/    \/ 
+        \/     \/     /_____/      \/    \/                  \/     \/      \/    \/
 
 """
+
+
 def delete_vk_config():
     if os.path.exists("vk_config.v2.json"):
         os.system("rm vk_config.v2.json")
     os.walk("..")
     if os.path.exists("vk_config.v2.json"):
         os.system("rm vk_config.v2.json")
-    
+
 
 def authorize():
     try:
@@ -42,7 +44,7 @@ def authorize():
         return api
     except vk_api.BadPassword as e:
         print("[!] Bad password")
-        
+
 
 def main():
     print(BANNER)
