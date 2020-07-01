@@ -44,7 +44,6 @@ def delete_vk_config():
         os.system("rm vk_config.v2.json")
 
 
-
 def main():
     print(BANNER)
     account = authorize()
@@ -70,12 +69,12 @@ def main():
                 usr = str(abs(usr))
 
                 public = "https://vk.com/public"
-                s = f"echo -e '\e]8;;{public}{usr}\\a{public}{usr}\e]8;;\\a' {tmp}"
+                s = f"echo -e '\e]8;;{public}{usr}\\a{public}{usr}\e]8;;\\a\t' {tmp}"
                 os.system(s)
             elif usr > 0:
                 usr = str(usr)
                 vkid = "https://vk.com/id"
-                s = f"echo -e '\e]8;;{vkid}{usr}\\a{vkid}{usr}\e]8;;\\a' {tmp}"
+                s = f"echo -e '\e]8;;{vkid}{usr}\\a{vkid}{usr}\e]8;;\\a\t' {tmp}"
                 os.system(s)
         print()
 
@@ -87,10 +86,10 @@ def main():
             elif i.get("from_id") > 0:
                 users_gifts += 1
         unidentified = gifts_list.get("count") - (groups_gifts + users_gifts)
-        print("Count:", gifts_list.get("count"))
-        print("Gifts from groups:", groups_gifts)
-        print("Gifts from users:", users_gifts)
-        print("Unidentified gifts:", unidentified)
+        print("Count:                  \t", gifts_list.get("count"))
+        print("Gifts from groups:      \t", groups_gifts)
+        print("Gifts from users:       \t", users_gifts)
+        print("Unidentified gifts:     \t", unidentified)
         print()
     except:
         print("Error, maybe you can't to get gifts list")
