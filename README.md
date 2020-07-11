@@ -46,7 +46,7 @@
     python3 gifts.py -u/--user [id]
 ~~~
 
-* ***mergefriends.py*** **status: working** - *User gift parsing.*
+* ***mergefriends.py*** **status: working** - *Makes mutual friends between two people*
 
 ## USING
 ~~~
