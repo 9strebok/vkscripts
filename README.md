@@ -1,9 +1,13 @@
 # VKSCRIPTS
 
-[Tree](#Tree)
-[Install](#INSTALL)
-[Scripts](#Scripts)
-[Help](#Help)
+# Anchors
+[TREE](#Tree)
+
+[INSTALL](#INSTALL)
+
+[SCRIPTS](#Scripts)
+
+[HELP](#Help)
 
 ## Tree
 ~~~
@@ -15,6 +19,7 @@
    ├── gifts.py
    └── mergefriends.py
 ~~~
+[BACK](#Anchors)
 
 ## INSTALL
 
@@ -29,6 +34,8 @@
     git clone https://github.com/9strebok/vkscripts
     pip install -r requirements.txt
 ~~~
+
+[BACK](#Anchors)
 
 ## SCRIPTS
 
@@ -53,6 +60,8 @@
     python3 gifts.py -u1/--user1 [id] -u2/--user2 [id]
 ~~~
 
+[BACK](#Anchors)
+
 ---
 
 ## HELP
@@ -76,5 +85,7 @@
         -h, --help            show this help message and exit
         -u USER, --user USER  python3 checkfave.py -u [user_id]
 ~~~
+
+[BACK](#Anchors)
 
 ---
