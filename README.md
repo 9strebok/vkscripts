@@ -1,5 +1,10 @@
 # VKSCRIPTS
 
+[Tree](#Tree)
+[Install](#INSTALL)
+[Scripts](#Scripts)
+[Help](#Help)
+
 ## Tree
 ~~~
 .
