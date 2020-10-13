@@ -3,22 +3,30 @@ import getpass
 import os
 import time
 
-from progress.spinner import MoonSpinner
+from progress.bar import IncrementalBar
 import vk_api
 
-PARSER = argparse.ArgumentParser(description="Check if a person has a current account in bookmarks")
-PARSER.add_argument("-u", "--user", action="store", type=int, dest="user", help="python3 gifts.py -u [user_id]")
+PARSER = argparse.ArgumentParser(description="Parse user gifts")
+
+# add python3 gifts.py -u [id]
+
+PARSER.add_argument("users",
+                    nargs = "*",
+                    type  = int,
+                    help  = "python3 gifts.py [user_id_1] [user_id_2] [...]")
+
+# add python3 gifts.py -x [max]
+
+PARSER.add_argument("-m",
+                    "--min",
+                    type    = int,
+                    dest    = "min",
+                    default = 0,
+                    help    = "python3 gifts.py -x [max]")
+
+
+
 args = PARSER.parse_args()
-
-BANNER = """
-        .__  _____  __
-   ____ |__|/ ____\/  |_  ______
-  / ___\|  \   __\\\\   __\/  ___/
- / /_/  >  ||  |   |  |  \___ \\
- \___  /|__||__|   |__| /____  >
-/_____/                      \/
-
-"""
 
 def authorize():
     try:
@@ -44,19 +52,18 @@ def delete_vk_config():
         os.system("rm vk_config.v2.json")
 
 
-def main():
-    print(BANNER)
-    account = authorize()
-    print()
+def get_gifts(account: vk_api.vk_api.VkApiMethod,user: int):
     try:
-        gifts_list = account.gifts.get(user_id=args.user)
-        with MoonSpinner("Wait..") as bar:
-            usrs = []
-            for i in gifts_list.get("items"):
-                time.sleep(0.01)
-                if not i.get("from_id") in usrs:
-                    usrs.append(i.get("from_id"))
-                bar.next()
+        print()
+        gifts_list = account.gifts.get(user_id=user)
+        bar = IncrementalBar(str(user), max = len(gifts_list.get("items")))
+        usrs = []
+        for i in gifts_list.get("items"):
+            if not i.get("from_id") in usrs:
+                usrs.append(i.get("from_id"))
+            bar.next()
+            time.sleep(0.01)
+        bar.finish()
         print()
 
         res = []
@@ -65,16 +72,15 @@ def main():
             for i in gifts_list.get("items"):
                 if i.get("from_id") == usr:
                     tmp += 1
-            if usr < 0:
+            if usr < 0 and tmp >= args.min:
                 usr = str(abs(usr))
-
                 public = "https://vk.com/public"
-                s = f"echo -e '\e]8;;{public}{usr}\\a{public}{usr}\e]8;;\\a\t' {tmp}"
+                s = f"echo '\e]8;;{public}{usr}\\a{public}{usr}\e]8;;\\a\t' {tmp}"
                 os.system(s)
-            elif usr > 0:
+            elif usr > 0 and tmp >= args.min:
                 usr = str(usr)
                 vkid = "https://vk.com/id"
-                s = f"echo -e '\e]8;;{vkid}{usr}\\a{vkid}{usr}\e]8;;\\a\t' {tmp}"
+                s = f"echo '\e]8;;{vkid}{usr}\\a{vkid}{usr}\e]8;;\\a\t' {tmp}"
                 os.system(s)
         print()
 
@@ -94,6 +100,23 @@ def main():
     except:
         print("Error, maybe you can't to get gifts list")
         print()
+
+def main():
+    BANNER = """
+        .__  _____  __
+   ____ |__|/ ____\/  |_  ______
+  / ___\|  \   __\\\\   __\/  ___/
+ / /_/  >  ||  |   |  |  \___ \\
+ \___  /|__||__|   |__| /____  >
+/_____/                      \/
+
+"""
+
+    print(BANNER)
+    account = authorize()
+    for usr in args.users:
+        get_gifts(account, usr)
+    print()
 
 
 if __name__ == "__main__":
