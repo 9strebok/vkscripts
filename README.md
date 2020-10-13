@@ -57,7 +57,7 @@
 
 ## USING
 ~~~
-    python3 gifts.py -u1/--user1 [id] -u2/--user2 [id]
+    python3 gifts.py [user_id_1] [user_id_2]
 ~~~
 
 [BACK](#Anchors)

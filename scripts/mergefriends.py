@@ -6,8 +6,7 @@ import getpass
 
 
 PARSER = argparse.ArgumentParser(description="")
-PARSER.add_argument("-u1", "--user1", action="store", type=int, dest="user1", help="python3 gifts.py -u1 [user_id] -u2 [user_id]")
-PARSER.add_argument("-u2", "--user2", action="store", type=int, dest="user2", help="python3 gifts.py -u1 [user_id] -u2 [user_id]")
+PARSER.add_argument("users", nargs="*", type=int, help="python3 gifts.py [user_id_1] [user_id_2] [user_id_3]")
 args = PARSER.parse_args()
 
 
@@ -46,17 +45,32 @@ def authorize():
         print("[!] Bad password")
 
 
+def get_unique(l: list):
+    res = []
+    for i in l:
+        c = l.count(i)
+        if c > 1:
+            res.append(i)
+            l.remove(i)
+    return res
+
+
 def main():
     print(BANNER)
     account = authorize()
 
-    u1 = account.friends.get(user_id=args.user1).get("items")
-    u2 = account.friends.get(user_id=args.user2).get("items")
-    print(f"Merge: %s / %s" % ("vk.com/id" + str(args.user1), "vk.com/id" + str(args.user2)))
+    merged_friends = []
 
-    for u in u1:
-        if u in u2:
-            print("\tvk.com/id" + str(u))
+    for usr in args.users:
+        friends = account.friends.get(user_id=usr).get("items")
+        merged_friends.extend(friends)
+
+    res = get_unique(merged_friends)
+
+    vkid = "https://vk.com/id"
+    for r in res:
+        s = f"echo '\e]8;;{vkid}{r}\\a{vkid}{r}\e]8;;\\a\t'"
+        os.system(s)
 
 
 if __name__ == "__main__":
