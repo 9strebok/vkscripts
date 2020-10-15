@@ -26,6 +26,15 @@ PARSER.add_argument("-m",
 args = PARSER.parse_args()
 
 
+class Colors():
+    HEADER = '\033[95m'
+    CYAN = '\033[0;36m'
+    GREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
 
 def authorize():
@@ -67,7 +76,7 @@ def get_gifts(account: vk_api.vk_api.VkApiMethod,user: int):
             if not i.get("from_id") in usrs:
                 usrs.append(i.get("from_id"))
             bar.next()
-            time.sleep(0.01)
+            time.sleep(0.005)
         bar.finish()
         # Drop status bar
         print()
@@ -110,7 +119,7 @@ def get_gifts(account: vk_api.vk_api.VkApiMethod,user: int):
 
 
 def main():
-    BANNER = """
+    BANNER = Colors.HEADER + Colors.BOLD + Colors.CYAN + """
         .__  _____  __
    ____ |__|/ ____\/  |_  ______
   / ___\|  \   __\\\\   __\/  ___/
@@ -118,7 +127,7 @@ def main():
  \___  /|__||__|   |__| /____  >
 /_____/                      \/
 
-"""
+""" + Colors.ENDC
 
     print(BANNER)
     account = authorize()
