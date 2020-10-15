@@ -9,13 +9,14 @@ import vk_api
 
 
 # Parser
-
 PARSER = argparse.ArgumentParser(description="Parse user gifts")
-# add python3 gifts.py -u [id]
+
+# add python3 gifts.py [user_id_1] [user_id_2]
 PARSER.add_argument("users",
                     nargs = "*",
                     type  = int,
                     help  = "python3 gifts.py [user_id_1] [user_id_2] [...]")
+
 # add python3 gifts.py -x [max]
 PARSER.add_argument("-m",
                     "--min",
@@ -23,6 +24,7 @@ PARSER.add_argument("-m",
                     dest    = "min",
                     default = 0,
                     help    = "python3 gifts.py -x [max]")
+
 args = PARSER.parse_args()
 
 
@@ -39,12 +41,12 @@ class Colors():
 
 def authorize():
     try:
-        login = input("[?] LOGIN: ")
+        login = input(Colors.CYAN + Colors.BOLD + "[?] LOGIN: " + Colors.ENDC)
         try:
-            passwd = getpass.getpass("[?] PASSWORD: ")
+            passwd = getpass.getpass(Colors.CYAN + Colors.BOLD + "[?] PASSWORD: " + Colors.ENDC)
         except:
             print("[!] Error")
-            passwd = getpass.getpass("[?] PASSWORD: ")
+            passwd = getpass.getpass(Colors.CYAN + Colors.BOLD + "[?] PASSWORD: " + Colors.ENDC)
         api = vk_api.VkApi(login=login, password=passwd, session=None)
         api.auth()
         api = api.get_api()
@@ -69,7 +71,7 @@ def get_gifts(account: vk_api.vk_api.VkApiMethod,user: int):
 
         # Create status bar
         bar_name = account_info[0].get("first_name") + " " + account_info[0].get("last_name")
-        bar = IncrementalBar(str(bar_name), max = len(gifts_list.get("items")))
+        bar = IncrementalBar(Colors.CYAN + Colors.BOLD + str(bar_name) + Colors.ENDC, max = len(gifts_list.get("items")))
 
         usrs = []
         for i in gifts_list.get("items"):
@@ -90,12 +92,12 @@ def get_gifts(account: vk_api.vk_api.VkApiMethod,user: int):
             if usr < 0 and tmp >= args.min:
                 usr = str(abs(usr))
                 public = "https://vk.com/public"
-                s = f"echo '\e]8;;{public}{usr}\\a{public}{usr}\e]8;;\\a\t' {tmp}"
+                s = f"echo '\t{Colors.CYAN + Colors.BOLD}\e]8;;{public}{usr}\\a{public}{usr}\e]8;;\\a{Colors.ENDC}\t' {tmp}"
                 os.system(s)
             elif usr > 0 and tmp >= args.min:
                 usr = str(usr)
                 vkid = "https://vk.com/id"
-                s = f"echo '\e]8;;{vkid}{usr}\\a{vkid}{usr}\e]8;;\\a\t' {tmp}"
+                s = f"echo '\t{Colors.CYAN + Colors.BOLD}\e]8;;{vkid}{usr}\\a{vkid}{usr}\e]8;;\\a{Colors.ENDC}\t' {tmp}"
                 os.system(s)
         print()
 
@@ -108,10 +110,10 @@ def get_gifts(account: vk_api.vk_api.VkApiMethod,user: int):
             elif i.get("from_id") > 0:
                 users_gifts += 1
         unidentified = gifts_list.get("count") - (groups_gifts + users_gifts)
-        print("Count:                  \t", gifts_list.get("count"))
-        print("Gifts from groups:      \t", groups_gifts)
-        print("Gifts from users:       \t", users_gifts)
-        print("Unidentified gifts:     \t", unidentified)
+        print(Colors.CYAN + "\tCount:                  \t" + Colors.ENDC, gifts_list.get("count"))
+        print(Colors.CYAN + "\tGifts from groups:      \t" + Colors.ENDC, groups_gifts)
+        print(Colors.CYAN + "\tGifts from users:       \t" + Colors.ENDC, users_gifts)
+        print(Colors.CYAN + "\tUnidentified gifts:     \t" + Colors.ENDC, unidentified)
         print()
     except:
         print("Error, maybe you can't to get gifts list")
