@@ -3,30 +3,30 @@ import getpass
 import os
 import time
 
+# Nonlocal imports
 from progress.bar import IncrementalBar
 import vk_api
 
+
+# Parser
+
 PARSER = argparse.ArgumentParser(description="Parse user gifts")
-
 # add python3 gifts.py -u [id]
-
 PARSER.add_argument("users",
                     nargs = "*",
                     type  = int,
                     help  = "python3 gifts.py [user_id_1] [user_id_2] [...]")
-
 # add python3 gifts.py -x [max]
-
 PARSER.add_argument("-m",
                     "--min",
                     type    = int,
                     dest    = "min",
                     default = 0,
                     help    = "python3 gifts.py -x [max]")
-
-
-
 args = PARSER.parse_args()
+
+
+
 
 def authorize():
     try:
@@ -56,7 +56,12 @@ def get_gifts(account: vk_api.vk_api.VkApiMethod,user: int):
     try:
         print()
         gifts_list = account.gifts.get(user_id=user)
-        bar = IncrementalBar(str(user), max = len(gifts_list.get("items")))
+        account_info = account.users.get(user_ids=user)
+
+        # Create status bar
+        bar_name = account_info[0].get("first_name") + " " + account_info[0].get("last_name")
+        bar = IncrementalBar(str(bar_name), max = len(gifts_list.get("items")))
+
         usrs = []
         for i in gifts_list.get("items"):
             if not i.get("from_id") in usrs:
@@ -64,6 +69,7 @@ def get_gifts(account: vk_api.vk_api.VkApiMethod,user: int):
             bar.next()
             time.sleep(0.01)
         bar.finish()
+        # Drop status bar
         print()
 
         res = []
@@ -84,6 +90,7 @@ def get_gifts(account: vk_api.vk_api.VkApiMethod,user: int):
                 os.system(s)
         print()
 
+
         groups_gifts = 0
         users_gifts = 0
         for i in gifts_list.get("items"):
@@ -101,6 +108,7 @@ def get_gifts(account: vk_api.vk_api.VkApiMethod,user: int):
         print("Error, maybe you can't to get gifts list")
         print()
 
+
 def main():
     BANNER = """
         .__  _____  __
@@ -116,7 +124,6 @@ def main():
     account = authorize()
     for usr in args.users:
         get_gifts(account, usr)
-    print()
 
 
 if __name__ == "__main__":
