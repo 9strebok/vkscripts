@@ -19,7 +19,7 @@ PARSER.add_argument("users",
                     help    = "python3 gifts.py [user_id_1] [user_id_2] [...]")
 
 
-# add python3 gifts.py -x [max]
+# add python3 gifts.py -m [min]
 PARSER.add_argument("-m",
                     "--min",
                     type    = int,
