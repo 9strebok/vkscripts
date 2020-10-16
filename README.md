@@ -39,19 +39,19 @@
 
 ## SCRIPTS
 
-<br>
+<br/>
 * ***checkfave.py*** **status: working** - *Check if a person has a current account in bookmarks.*
 ~~~
     python3 checkfave.py -u/--user [id]
 ~~~
 
-<br>
+<br/>
 * ***gifts.py*** **status: working** - *User gift parsing.*
 ~~~
     python3 gifts.py [user_id_1] [user_id_2] {-m/--min} [number]
 ~~~
 
-<br>
+<br/>
 * ***mergefriends.py*** **status: working** - *Makes mutual friends between two people*
 ~~~
     python3 gifts.py [user_id_1] [user_id_2]
