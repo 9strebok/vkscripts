@@ -44,17 +44,16 @@
 ~~~
     python3 checkfave.py -u/--user [id]
 ~~~
----
-
 
 ---
+
 ***gifts.py*** **status: working** - *User gift parsing.*
 ~~~
     python3 gifts.py [user_id_1] [user_id_2] {-m/--min} [number]
 ~~~
----
 
 ---
+
 ***mergefriends.py*** **status: working** - *Makes mutual friends between two people*
 ~~~
     python3 gifts.py [user_id_1] [user_id_2]
