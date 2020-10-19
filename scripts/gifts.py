@@ -38,17 +38,17 @@ class Colors():
     BOLD = '\033[1m'
 
 
-def color_string(string: str):
+def color_string(string: str) -> str:
     new_string = f"{Colors.MAINCOLOR}{Colors.BOLD}{string}{Colors.ENDC}"
     return new_string
 
 
-def nice_output(output: str):
+def nice_output(output: str) -> None:
     new_output = f"{Colors.MAINCOLOR}{Colors.BOLD}{output}{Colors.ENDC}"
     print(new_output)
 
 
-def nice_output_with_content(output: str, content):
+def nice_output_with_content(output: str, content) -> None:
     new_output = f"{Colors.MAINCOLOR}{Colors.BOLD}\t{output}\t{Colors.ENDC}"
     print(new_output, content)
 
@@ -57,22 +57,18 @@ def authorize():
     try:
         login = input(color_string("[?] LOGIN: "))
         try:
-            passwd = getpass.getpass(
-                                color_string("[?] PASSWORD: ")
-                            )
+            passwd = getpass.getpass(color_string("[?] PASSWORD: "))
         except:
             print("[!] Error")
-            passwd = getpass.getpass(
-                                color_string("[?] PASSWORD: ")
-                            )
-
+            passwd = getpass.getpass(color_string("[?] PASSWORD: "))
         api = vk_api.VkApi( login = login,
                             password = passwd,
                             session = None )
         api.auth()
         api = api.get_api()
         return api
-    except vk_api.BadPassword as e:
+
+    except vk_api.BadPassword:
         print("[!] Bad password")
 
 
@@ -84,7 +80,7 @@ def delete_vk_config():
         os.system("rm vk_config.v2.json")
 
 
-def get_gifts(account: vk_api.vk_api.VkApiMethod,user: int):
+def get_gifts(account: vk_api.vk_api.VkApiMethod, user: int):
     try:
         print()
         gifts_list   = account.gifts.get(user_id  = user)
@@ -110,6 +106,7 @@ def get_gifts(account: vk_api.vk_api.VkApiMethod,user: int):
         res = []
         for usr in usrs:
             tmp = 0
+
             for i in gifts_list.get("items"):
                 if i.get("from_id") == usr:
                     tmp += 1
@@ -168,12 +165,9 @@ def main():
 
 """
     BANNER = color_string(BANNER)
-
     print(BANNER)
     account = authorize()
-
-    for usr in args.users:
-        get_gifts(account, usr)
+    [get_gifts(account, usr) for usr in args.users]
 
 
 if __name__ == "__main__":
