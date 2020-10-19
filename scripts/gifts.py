@@ -3,7 +3,6 @@ import getpass
 import os
 import time
 
-# Nonlocal imports
 from progress.bar import IncrementalBar
 import vk_api
 
@@ -38,17 +37,17 @@ class Colors():
     BOLD = '\033[1m'
 
 
-def color_string(string: str) -> str:
+def color_string(string: str):
     new_string = f"{Colors.MAINCOLOR}{Colors.BOLD}{string}{Colors.ENDC}"
     return new_string
 
 
-def nice_output(output: str) -> None:
+def nice_output(output: str):
     new_output = f"{Colors.MAINCOLOR}{Colors.BOLD}{output}{Colors.ENDC}"
     print(new_output)
 
 
-def nice_output_with_content(output: str, content) -> None:
+def nice_output_with_content(output: str, content):
     new_output = f"{Colors.MAINCOLOR}{Colors.BOLD}\t{output}\t{Colors.ENDC}"
     print(new_output, content)
 
@@ -106,52 +105,47 @@ def get_gifts(account: vk_api.vk_api.VkApiMethod, user: int):
         res = []
         for usr in usrs:
             tmp = 0
-
             for i in gifts_list.get("items"):
                 if i.get("from_id") == usr:
                     tmp += 1
 
-            if usr < 0 and tmp >= args.min:
+            res.append([usr, tmp])
 
-                usr              = str(abs(usr))
-                public           = "https://vk.com/public"
-                public_plus_user = f"{public}{usr}"
-                output           = color_string(f"\t\e]8;;{public_plus_user}\\a{public_plus_user}\e]8;;\\a\t")
-                out              = f"echo '{output} {tmp}'"
 
-                os.system(out)
-
-            elif usr > 0 and tmp >= args.min:
-
-                usr              = str(usr)
-                vkid             = "https://vk.com/id"
-                vkid_plus_usr    = f"{vkid}{usr}"
-                output           = color_string(f"\t\e]8;;{vkid_plus_usr}\\a{vkid_plus_usr}\e]8;;\\a\t")
-                out              = f"echo '{output} {tmp}'"
-
-                os.system(out)
-        print()
+        count = len(res)
+        res.sort(key = lambda k: k[1])
+        needed_users = reversed([r for r in res if r[1] >= args.min])
 
         groups_gifts = 0
         users_gifts = 0
 
-        for i in gifts_list.get("items"):
-            if i.get("from_id") < 0:
+        for usr in needed_users:
+            public_url = "https://vk.com/public"
+            user_url = "https://vk.com/id"
+            if usr[0] < 0:
+                usr_id = str(abs(usr[0]))
+                url = f"{public_url}{usr_id}"
+                nice_output_with_content(url, usr[1])
                 groups_gifts += 1
-            elif i.get("from_id") > 0:
+
+            elif usr[0] > 0:
+                usr_id = str(abs(usr[0]))
+                url = f"{user_url}{usr_id}"
+                nice_output_with_content(url, usr[1])
                 users_gifts += 1
 
-        unidentified = gifts_list.get("count") - (groups_gifts + users_gifts)
 
-        nice_output_with_content("Count:                  ", gifts_list.get("count"))
+            unidentified = count - (groups_gifts + users_gifts)
+
+
+        print()
+        nice_output_with_content("Count:                  ", count)
         nice_output_with_content("Gifts from groups:      ", groups_gifts)
         nice_output_with_content("Gifts from users:       ", users_gifts)
         nice_output_with_content("Unidentified gifts:     ", unidentified)
-        print()
 
-    except:
-        print("Error, maybe you can't to get gifts list")
-        print()
+    except Exception as e:
+        raise e
 
 
 def main():
