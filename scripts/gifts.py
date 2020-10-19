@@ -113,6 +113,11 @@ def get_gifts(account: vk_api.vk_api.VkApiMethod, user: int):
 
             res.append([usr, tmp])
 
+<<<<<<< HEAD
+=======
+
+        count = len(res)
+>>>>>>> 6b5613e250b6860aca4edaf0e09902c2039f2b41
         res.sort(key = lambda k: k[1])
         needed_users = reversed([r for r in res if r[1] >= args.min])
 
@@ -123,21 +128,37 @@ def get_gifts(account: vk_api.vk_api.VkApiMethod, user: int):
         for usr in needed_users:
             public_url = "https://vk.com/public"
             user_url = "https://vk.com/id"
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6b5613e250b6860aca4edaf0e09902c2039f2b41
             if usr[0] < 0:
                 usr_id = str(abs(usr[0]))
                 url = f"{public_url}{usr_id}"
                 nice_output_with_content(url, usr[1])
+<<<<<<< HEAD
                 groups_gifts += usr[1]
+=======
+                groups_gifts += 1
+>>>>>>> 6b5613e250b6860aca4edaf0e09902c2039f2b41
 
             elif usr[0] > 0:
                 usr_id = str(abs(usr[0]))
                 url = f"{user_url}{usr_id}"
                 nice_output_with_content(url, usr[1])
+<<<<<<< HEAD
                 users_gifts += usr[1]
 
         unidentified = count - groups_gifts - users_gifts
 
+=======
+                users_gifts += 1
+
+
+            unidentified = count - (groups_gifts + users_gifts)
+
+
+>>>>>>> 6b5613e250b6860aca4edaf0e09902c2039f2b41
         print()
         nice_output_with_content("Count:                  ", count)
         nice_output_with_content("Gifts from groups:      ", groups_gifts)
