@@ -37,29 +37,29 @@ class Colors():
     BOLD = '\033[1m'
 
 
-def color_string(string: str):
-    new_string = f"{Colors.MAINCOLOR}{Colors.BOLD}{string}{Colors.ENDC}"
-    return new_string
+    def color_string(string: str):
+        new_string = f"{Colors.MAINCOLOR}{Colors.BOLD}{string}{Colors.ENDC}"
+        return new_string
 
 
-def nice_output(output: str):
-    new_output = f"{Colors.MAINCOLOR}{Colors.BOLD}{output}{Colors.ENDC}"
-    print(new_output)
+    def nice_output(output: str):
+        new_output = f"{Colors.MAINCOLOR}{Colors.BOLD}{output}{Colors.ENDC}"
+        print(new_output)
 
 
-def nice_output_with_content(output: str, content):
-    new_output = f"{Colors.MAINCOLOR}{Colors.BOLD}\t{output}\t{Colors.ENDC}"
-    print(new_output, content)
+    def nice_output_with_content(output: str, content):
+        new_output = f"{Colors.MAINCOLOR}{Colors.BOLD}\t{output}\t{Colors.ENDC}"
+        print(new_output, content)
 
 
 def authorize():
     try:
-        login = input(color_string("[?] LOGIN: "))
+        login = input(Colors.color_string("[?] LOGIN: "))
         try:
-            passwd = getpass.getpass(color_string("[?] PASSWORD: "))
+            passwd = getpass.getpass(Colors.color_string("[?] PASSWORD: "))
         except:
             print("[!] Error")
-            passwd = getpass.getpass(color_string("[?] PASSWORD: "))
+            passwd = getpass.getpass(Colors.color_string("[?] PASSWORD: "))
         api = vk_api.VkApi( login = login,
                             password = passwd,
                             session = None )
@@ -91,7 +91,7 @@ def get_gifts(account: vk_api.vk_api.VkApiMethod, user: int):
         bar_name = str(account_info[0].get("first_name") + " " + account_info[0].get("last_name"))
 
         bar = IncrementalBar(
-                color_string(bar_name),
+                Colors.color_string(bar_name),
                 max = count
         )
 
@@ -126,23 +126,23 @@ def get_gifts(account: vk_api.vk_api.VkApiMethod, user: int):
             if usr[0] < 0:
                 usr_id = str(abs(usr[0]))
                 url = f"{public_url}{usr_id}"
-                nice_output_with_content(url, usr[1])
+                Colors.nice_output_with_content(url, usr[1])
                 groups_gifts += usr[1]
 
 
             elif usr[0] > 0:
                 usr_id = str(abs(usr[0]))
                 url = f"{user_url}{usr_id}"
-                nice_output_with_content(url, usr[1])
+                Colors.nice_output_with_content(url, usr[1])
                 users_gifts += usr[1]
 
         unidentified = count - (groups_gifts + users_gifts)
 
         print()
-        nice_output_with_content("Count:                  ", count)
-        nice_output_with_content("Gifts from groups:      ", groups_gifts)
-        nice_output_with_content("Gifts from users:       ", users_gifts)
-        nice_output_with_content("Unidentified gifts:     ", unidentified)
+        Colors.nice_output_with_content("Count:                  ", count)
+        Colors.nice_output_with_content("Gifts from groups:      ", groups_gifts)
+        Colors.nice_output_with_content("Gifts from users:       ", users_gifts)
+        Colors.nice_output_with_content("Unidentified gifts:     ", unidentified)
 
     except Exception as e:
         raise e
@@ -158,10 +158,11 @@ def main():
 /_____/                      \/
 
 """
-    BANNER = color_string(BANNER)
+    BANNER = Colors.color_string(BANNER)
     print(BANNER)
     account = authorize()
     [get_gifts(account, usr) for usr in args.users]
+    print()
 
 
 if __name__ == "__main__":
