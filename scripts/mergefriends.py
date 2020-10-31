@@ -6,9 +6,14 @@ import getpass
 
 
 PARSER = argparse.ArgumentParser(description="")
-PARSER.add_argument("users", nargs="*", type=int, help="python3 gifts.py [user_id_1] [user_id_2] [user_id_3]")
-args = PARSER.parse_args()
+PARSER.add_argument(
+    "users",
+    nargs="*",
+    type=int,
+    help="python3 gifts.py [user_id_1] [user_id_2] [user_id_3]"
+)
 
+args = PARSER.parse_args()
 
 BANNER = """
    _____                            ___________      .__                   .___
@@ -33,7 +38,7 @@ def authorize():
         login = input("[?] LOGIN: ")
         try:
             passwd = getpass.getpass("[?] PASSWORD: ")
-        except:
+        except BaseException:
             print("[!] Error")
             passwd = getpass.getpass("[?] PASSWORD: ")
         api = vk_api.VkApi(login=login, password=passwd, session=None)
@@ -68,7 +73,7 @@ def main():
 
     vkid = "https://vk.com/id"
     for r in res:
-        s = f"echo '\e]8;;{vkid}{r}\\a{vkid}{r}\e]8;;\\a\t'"
+        s = rf"echo '\e]8;;{vkid}{r}\\a{vkid}{r}\e]8;;\\a\t'"
         os.system(s)
 
 
