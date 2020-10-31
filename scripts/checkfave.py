@@ -4,8 +4,19 @@ import os
 
 import vk_api
 
-PARSER = argparse.ArgumentParser(description="Check if a person has a current account in bookmarks")
-PARSER.add_argument("-u", "--user", action="store", type=int, dest="user", help="python3 checkfave.py -u [user_id]")
+PARSER = argparse.ArgumentParser(
+    description="Check if a person has a current account in bookmarks"
+)
+
+PARSER.add_argument(
+    "-u",
+    "--user",
+    action="store",
+    type=int,
+    dest="user",
+    help="python3 checkfave.py -u [user_id]"
+)
+
 args = PARSER.parse_args()
 
 BANNER = """
@@ -14,6 +25,7 @@ BANNER = """
        | (__| | | |  __/ (__|   </ / | (_| |\ V /  __/
         \___|_| |_|\___|\___|_|\_\/   \__,_| \_/ \___|
 """
+
 
 def authorize():
     try:
@@ -31,7 +43,7 @@ def delete_vk_config():
     os.walk("..")
     if os.path.exists("vk_config.v2.json"):
         os.system("rm vk_config.v2.json")
-    
+
 
 def main():
     print(BANNER)
