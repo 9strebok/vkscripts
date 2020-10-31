@@ -54,7 +54,7 @@ class Colors():
 
 def authorize():
     try:
-        login = input(Colors.color_string("[?] LOGIN: "))
+        login = input(Colors.color_string("[?] LOGIN: ")).strip()
         try:
             passwd = getpass.getpass(Colors.color_string("[?] PASSWORD: "))
         except:
