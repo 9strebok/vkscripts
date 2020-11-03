@@ -86,7 +86,6 @@ def authorize():
                            session=None)
         api.auth()
         api = api.get_api()
-        print(api)
         return api
 
     except vk_api.BadPassword:
@@ -124,9 +123,8 @@ def get_gifts(account: vk_api.vk_api.VkApiMethod, user: int):
 
     # Create status bar
     bar_name = str(
-        account_info[0].get("first_name") +
-        " " +
-        account_info[0].get("last_name")
+        account_info[0].get("first_name") + " " + \
+                        account_info[0].get("last_name")
     )
 
     statusbar = IncrementalBar(
@@ -180,8 +178,8 @@ def get_gifts(account: vk_api.vk_api.VkApiMethod, user: int):
     print()
 
     Colors.nice_output_with_content(
-            "Count:                  ",
-            count
+        "Count:                  ",
+        count
     )
 
     Colors.nice_output_with_content(
@@ -203,16 +201,15 @@ def get_gifts(account: vk_api.vk_api.VkApiMethod, user: int):
 
 def main():
     """ MAIN FUNCTION """
-    BANNER = """
+    BANNER = Colors.color_string(r"""
         .__  _____  __
    ____ |__|/ ____\/  |_  ______
-  / ___\|  \   __\\\\   __\/  ___/
- / /_/  >  ||  |   |  |  \___ \\
+  / ___\|  \   __\\   __\/  ___/
+ / /_/  >  ||  |   |  |  \___ \
  \___  /|__||__|   |__| /____  >
 /_____/                      \/
 
-"""
-    BANNER = Colors.color_string(BANNER)
+""")
     print(BANNER)
     account = authorize()
 
