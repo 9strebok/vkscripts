@@ -138,8 +138,8 @@ def get_gifts(account: vk_api.vk_api.VkApiMethod, user: int):
             usrs.append(i.get("from_id"))
         statusbar.next()
         time.sleep(0.005)
-        statusbar.finish()
-        print()
+    statusbar.finish()
+    print()
 
     res = []
     for usr in usrs:
